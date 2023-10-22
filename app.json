@@ -25,6 +25,12 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "7f29a45e-6659-4836-ac0b-323d582ea1d5"
+      }
+    },
+    "owner": "stevelorde"
   }
 }
