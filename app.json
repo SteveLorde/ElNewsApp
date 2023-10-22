@@ -5,6 +5,7 @@
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
+    "scheme": "your-app-scheme",
     "userInterfaceStyle": "light",
     "splash": {
       "image": "./assets/splash.png",
@@ -31,6 +32,9 @@
         "projectId": "7f29a45e-6659-4836-ac0b-323d582ea1d5"
       }
     },
-    "owner": "stevelorde"
+    "owner": "stevelorde",
+    "plugins": [
+      "expo-router"
+    ]
   }
 }

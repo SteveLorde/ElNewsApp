@@ -1,5 +1,5 @@
 import {RSS} from "./RSS";
 
-export interface AllRSS {
+export interface News {
     AllNews : RSS[]
 }
