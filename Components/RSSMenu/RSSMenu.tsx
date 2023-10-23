@@ -1,6 +1,6 @@
 import {ScrollView, Text, TouchableOpacity, View} from "react-native";
-import {useState} from "react";
-import {DeleteLinks} from "../../Services/RSSService/RSSService";
+import {useEffect, useState} from "react";
+import {DeleteLinks, GetSources} from "../../Services/RSSService/RSSService";
 import {AddModal} from "../AddRSSModal/AddModal";
 
 export function RSSMenu() {
@@ -10,16 +10,26 @@ export function RSSMenu() {
 
     const openModal = () => {
         setModalVisible(true);
-    };
+    }
 
     const closeModal = () => {
-        setModalVisible(false);
-    };
+        setModalVisible(false)
+        GetSources()
+    }
+
+    async function GetLinks() {
+        let links = await GetSources()
+        setLinks(links)
+    }
 
     function ClearLinks() {
         DeleteLinks()
         setLinks([])
     }
+
+    useEffect(() => {
+        GetLinks()
+    }, []);
 
     return (
         <>

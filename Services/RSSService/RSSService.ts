@@ -10,7 +10,7 @@ let AllRSS : RSS[] = []
 
 export async function GetRSS() {
     //1-get links
-    let rsslinks = await GetLinks()
+    let rsslinks = await GetSources()
     for (let i = 0; i < rsslinks.length; i++) {
         console.log("rss source links: " + rsslinks[i].url)
     }
@@ -48,7 +48,7 @@ export async function AddLink(url : string) {
     }
 }
 
-export async function GetLinks() {
+export async function GetSources() {
     return await AppDataSource.manager.find(SourceLink)
 }
 
