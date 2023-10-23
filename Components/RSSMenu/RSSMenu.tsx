@@ -18,7 +18,7 @@ export function RSSMenu() {
     return (
         <>
             <View>
-                <TouchableOpacity onPress={() => GetNews() }>
+                <TouchableOpacity onPress={() => AddLink() }>
                     <Text>Add News (RSS) Link</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => ClearLinks() }>

@@ -38,6 +38,11 @@ export async function GetRSS() {
     return AllRSS
 }
 
+export async function AddLink(url : string) {
+    let newsource = new  SourceLink(url)
+    await AppDataSource.manager.save(newsource)
+}
+
 export async function GetLinks() {
     return await AppDataSource.manager.find(SourceLink)
 }
