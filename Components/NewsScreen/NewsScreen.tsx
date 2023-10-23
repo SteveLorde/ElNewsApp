@@ -20,7 +20,6 @@ export function NewsScreen() {
                 </TouchableOpacity>
                 {news.map( (rss : RSS) =>
                 <View>
-                    <Image></Image>
                     <View>
                         <Text>{rss.source}</Text>
                         <Text>{rss.published}</Text>

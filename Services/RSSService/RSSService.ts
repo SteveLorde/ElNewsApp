@@ -1,4 +1,3 @@
-import {News} from "../../Data/Models/News";
 import {AppDataSource} from "../../App";
 import {SourceLink} from "../../Data/Models/SourceLink";
 import axios from "axios";
@@ -39,8 +38,14 @@ export async function GetRSS() {
 }
 
 export async function AddLink(url : string) {
-    let newsource = new  SourceLink(url)
-    await AppDataSource.manager.save(newsource)
+    try {
+        let newsource = new  SourceLink(url)
+        await AppDataSource.manager.save(newsource)
+        return true
+    }
+    catch (err) {
+        console.log("adding new source failed" + err)
+    }
 }
 
 export async function GetLinks() {
