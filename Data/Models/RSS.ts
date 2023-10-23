@@ -1,4 +1,4 @@
-export interface RSS {
+export class RSS {
     source : string
     Title : string
     published : string

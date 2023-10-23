@@ -1,15 +1,15 @@
 import {ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {useState} from "react";
-import {News} from "../../Data/Models/News";
 import {RSS} from "../../Data/Models/RSS";
+import {GetRSS} from "../../Services/RSSService/RSSService";
 
 export function NewsScreen() {
     const [news,setNews] = useState<RSS[]>([])
 
-    function GetNews() {
-
+    async function GetNews() {
+        let allnews = await GetRSS()
+        setNews(allnews)
     }
-
 
 
     return (
