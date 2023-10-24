@@ -14,7 +14,8 @@ export const AppDataSource = new DataSource({
   type: 'react-native',
   database: 'database',
   location: 'default',
-  entities: [SourceLink]
+  entities: [SourceLink],
+  synchronize: true
 })
 
 
@@ -40,10 +41,9 @@ export default function App() {
 
   return (
       <>
-        <Navbar></Navbar>
         <NavigationContainer>
-          <Stack.Navigator >
-            <Stack.Screen  name="Home" component={NewsScreen} />
+          <Stack.Navigator initialRouteName='NewsScreen' screenOptions={{header: Navbar}}>
+            <Stack.Screen name="NewsScreen" component={NewsScreen} />
             <Stack.Screen name="RSSMenu" component={RSSMenu} />
           </Stack.Navigator>
         </NavigationContainer>

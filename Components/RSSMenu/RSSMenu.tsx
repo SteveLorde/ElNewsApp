@@ -3,7 +3,7 @@ import {useEffect, useState} from "react";
 import {DeleteLinks, GetSources} from "../../Services/RSSService/RSSService";
 import {AddModal} from "../AddRSSModal/AddModal";
 
-export function RSSMenu() {
+export function RSSMenu({navigation} : any) {
 
     const [links,setLinks] = useState([])
     const [modalVisible, setModalVisible] = useState(false);
@@ -27,24 +27,32 @@ export function RSSMenu() {
         setLinks([])
     }
 
+    function GoBack() {
+        navigation.navigate('NewsScreen')
+    }
+
     useEffect(() => {
         GetLinks()
     }, []);
 
     return (
         <>
-            <View>
-                <TouchableOpacity style={{backgroundColor: '#3d4866', padding: 10, margin: 10}} onPress={() => openModal() }>
-                    <Text>Add News (RSS) Link</Text>
+            <View style={{backgroundColor: '#191923', flex: 1, flexDirection: 'column'}}>
+                <TouchableOpacity style={{backgroundColor: '#3d4866', padding: 10, margin: 10, borderRadius: 20}} onPress={ () => GoBack() }>
+                    <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold', textAlign: 'center'}}>Go Back</Text>
+                </TouchableOpacity>
+
+                <TouchableOpacity style={{backgroundColor: '#3d4866', padding: 10, margin: 10, borderRadius: 20}} onPress={() => openModal() }>
+                    <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold', textAlign: 'center'}}>Add News (RSS) Link</Text>
                 </TouchableOpacity>
 
                 <AddModal visible={modalVisible} CloseWindow={closeModal} />
 
-                <TouchableOpacity style={{backgroundColor: '#3d4866', padding: 10, margin: 10}} onPress={() => ClearLinks() }>
-                    <Text>Clear News Links</Text>
+                <TouchableOpacity style={{backgroundColor: '#3d4866', padding: 10, margin: 10, borderRadius: 20}} onPress={() => ClearLinks() }>
+                    <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold', textAlign: 'center'}}>Clear News Links</Text>
                 </TouchableOpacity>
 
-                <ScrollView>
+                <ScrollView style={{backgroundColor: '#191923'}}>
                     {links.map( (link) =>
                         <View>
                             <Text>{link}</Text>

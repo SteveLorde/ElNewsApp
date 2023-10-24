@@ -16,13 +16,13 @@ export function NewsScreen() {
     return (
         <>
             <ScrollView style={{backgroundColor: '#191923' }}>
-                <TouchableOpacity style={{backgroundColor: '#3d4866', padding: 10, margin: 10}} onPress={() => GetNews() }>
-                    <Text>Refresh</Text>
+                <TouchableOpacity style={{backgroundColor: '#3d4866', padding: 10, margin: 10, borderRadius: 20}} onPress={() => GetNews() }>
+                    <Text  style={{color: 'white', fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Refresh</Text>
                 </TouchableOpacity>
 
                 {news.map( (rss : RSS) =>
                 <View style={{backgroundColor: '#'}}>
-                    <View style={{flex :1, flexDirection: 'column',backgroundColor: '#3d4866', padding: 10, margin: 10}}>
+                    <View style={{flex :1, flexDirection: 'column',backgroundColor: '#3d4866', padding: 10, margin: 10, borderRadius: 20}}>
                         <Image source={rss.imageurl} />
                         <View>
                             <Text style={{ color: 'white', fontSize: 16}}>{rss.source}</Text>

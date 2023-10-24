@@ -4,27 +4,24 @@ import {useState} from "react";
 export function Navbar({navigation} : any) {
 
     const [switchbutton, setButton] = useState('RSS Menu')
-    const [currentpage, setCurrentPage] = useState('NewsScreen')
+    const [pagetoswitch, setPageToSwitchTo] = useState('RSSMenu')
 
-    function navigatetoRSSMenuorBack() {
-        if (currentpage == 'RSSMenu') {
-            setCurrentPage('NewsScreen')
-            navigation.goBack()
-        }
-        else if (currentpage == 'NewsScreen') {
-            setCurrentPage('RSSMenu')
+    function navigatetoRSSMenu() {
             navigation.navigate('RSSMenu')
-        }
     }
 
-
+    function navigatetoNewsScreen() {
+        navigation.navigate('NewsScreen')
+    }
 
     return (
         <>
-            <View style={{backgroundColor: '#3d4866', height: 100, flexDirection: 'row' ,justifyContent: 'space-between', alignItems: 'center', }}>
-                <Text>ElNews App</Text>
-                <TouchableOpacity onPress={ () => navigatetoRSSMenuorBack() }>{currentpage}</TouchableOpacity>
+            <View style={{backgroundColor: '#3d4866', padding: 20, height:110, flexDirection: 'row' ,justifyContent: 'space-between', alignItems: 'center', }}>
+                <Text style={{color: 'white', fontSize: 16}}>ElNews App</Text>
+                <TouchableOpacity onPress={ () => navigatetoRSSMenu() } style={{padding: 10, borderRadius: 20, backgroundColor: '#3d3866'}}>
+                    <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>RSS Menu</Text>
+                </TouchableOpacity>
             </View>
         </>
-    );
+    )
 }
