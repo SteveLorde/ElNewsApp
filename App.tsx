@@ -1,10 +1,14 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+
 import {DataSource} from "typeorm";
-import {RSS} from "./Data/Models/RSS";
 import {SourceLink} from "./Data/Models/SourceLink";
 import "reflect-metadata"
 import {useEffect} from "react";
+import {Navbar} from "./Components/Navbar/Navbar";
+import {NewsScreen} from "./Components/NewsScreen/NewsScreen";
+import {registerRootComponent} from "expo";
+import {NavigationContainer} from "@react-navigation/native";
+import {createNativeStackNavigator} from "@react-navigation/native-stack";
+import {RSSMenu} from "./Components/RSSMenu/RSSMenu";
 
 export const AppDataSource = new DataSource({
   type: 'react-native',
@@ -23,7 +27,7 @@ export default function App() {
       console.log("Database Connection Successful")
     }
     catch (err) {
-      console.error("Database connection FAILED" + err)
+      console.error("Database connection FAILED " + err)
     }
   }
 
@@ -31,19 +35,21 @@ export default function App() {
     StartDatabase()
   }, []);
 
+  const Stack = createNativeStackNavigator();
+
 
   return (
-    <View style={styles.container}>
-
-    </View>
-  );
+      <>
+        <Navbar></Navbar>
+        <NavigationContainer>
+          <Stack.Navigator >
+            <Stack.Screen  name="Home" component={NewsScreen} />
+            <Stack.Screen name="RSSMenu" component={RSSMenu} />
+          </Stack.Navigator>
+        </NavigationContainer>
+      </>
+  )
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+registerRootComponent(App);
+

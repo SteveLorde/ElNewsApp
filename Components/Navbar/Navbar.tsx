@@ -1,20 +1,29 @@
-import {Text, View} from "react-native";
-import {Link} from "expo-router";
+import {Text, TouchableOpacity, View} from "react-native";
 import {useState} from "react";
 
-export function Navbar() {
+export function Navbar({navigation} : any) {
 
     const [switchbutton, setButton] = useState('RSS Menu')
+    const [currentpage, setCurrentPage] = useState('NewsScreen')
 
-    function changebutton() {
-        setButton('Back')
+    function navigatetoRSSMenuorBack() {
+        if (currentpage == 'RSSMenu') {
+            setCurrentPage('NewsScreen')
+            navigation.goBack()
+        }
+        else if (currentpage == 'NewsScreen') {
+            setCurrentPage('RSSMenu')
+            navigation.navigate('RSSMenu')
+        }
     }
+
+
 
     return (
         <>
-            <View>
+            <View style={{backgroundColor: '#3d4866', height: 100, flexDirection: 'row' ,justifyContent: 'space-between', alignItems: 'center', }}>
                 <Text>ElNews App</Text>
-                <Link onPress={ () => changebutton() } href="../RSSMenu/">RSS Menu</Link>
+                <TouchableOpacity onPress={ () => navigatetoRSSMenuorBack() }>{currentpage}</TouchableOpacity>
             </View>
         </>
     );

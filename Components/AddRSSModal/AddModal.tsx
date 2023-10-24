@@ -22,14 +22,14 @@ export function AddModal({ visible, CloseWindow }) {
 
     return (
         <>
-            <Modal  animationType="slide" transparent={true} visible={visible} onRequestClose={CloseWindow}>
-                <TouchableOpacity onPress={CloseWindow}>
+            <Modal  animationType="slide" style={{ backgroundColor: 'white', padding: 20}} transparent={true} visible={visible} onRequestClose={CloseWindow}>
+                <TouchableOpacity style={{backgroundColor: '#3d4866', padding: 10, margin: 10}} onPress={CloseWindow}>
                     <Text>Close</Text>
                 </TouchableOpacity>
 
-                <TextInput onChangeText={handleInputChange} value={inputValue}/>
+                <TextInput style={{color: '#3d4866', borderColor: '#3d4866', padding: 10, borderRadius: 20}} onChangeText={handleInputChange} value={inputValue}/>
 
-                <TouchableOpacity onPress={ () => SubmitSource()}>
+                <TouchableOpacity style={{backgroundColor: '#3d4866', padding: 10, margin: 10}} onPress={ () => SubmitSource()}>
                     <Text>Submit</Text>
                 </TouchableOpacity>
 

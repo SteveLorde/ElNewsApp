@@ -34,13 +34,13 @@ export function RSSMenu() {
     return (
         <>
             <View>
-                <TouchableOpacity onPress={() => openModal() }>
+                <TouchableOpacity style={{backgroundColor: '#3d4866', padding: 10, margin: 10}} onPress={() => openModal() }>
                     <Text>Add News (RSS) Link</Text>
                 </TouchableOpacity>
 
                 <AddModal visible={modalVisible} CloseWindow={closeModal} />
 
-                <TouchableOpacity onPress={() => ClearLinks() }>
+                <TouchableOpacity style={{backgroundColor: '#3d4866', padding: 10, margin: 10}} onPress={() => ClearLinks() }>
                     <Text>Clear News Links</Text>
                 </TouchableOpacity>
 
