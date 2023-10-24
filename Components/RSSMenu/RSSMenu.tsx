@@ -2,11 +2,12 @@ import {ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {useEffect, useState} from "react";
 import {DeleteLinks, GetSources} from "../../Services/RSSService/RSSService";
 import {AddModal} from "../AddRSSModal/AddModal";
+import {SourceLink} from "../../Data/Models/SourceLink";
 
 export function RSSMenu({navigation} : any) {
 
-    const [links,setLinks] = useState([])
-    const [modalVisible, setModalVisible] = useState(false);
+    const [links,setLinks] = useState<SourceLink[]>([])
+    const [modalVisible, setModalVisible] = useState<boolean>(false);
 
     const openModal = () => {
         setModalVisible(true);
@@ -14,7 +15,7 @@ export function RSSMenu({navigation} : any) {
 
     const closeModal = () => {
         setModalVisible(false)
-        GetSources()
+        GetLinks()
     }
 
     async function GetLinks() {
@@ -22,9 +23,9 @@ export function RSSMenu({navigation} : any) {
         setLinks(links)
     }
 
-    function ClearLinks() {
-        DeleteLinks()
-        setLinks([])
+    async function ClearLinks() {
+        await DeleteLinks()
+        GetLinks()
     }
 
     function GoBack() {
@@ -53,9 +54,12 @@ export function RSSMenu({navigation} : any) {
                 </TouchableOpacity>
 
                 <ScrollView style={{backgroundColor: '#191923'}}>
-                    {links.map( (link) =>
-                        <View>
-                            <Text>{link}</Text>
+                    {links.map( (link : SourceLink) =>
+                        <View style={{backgroundColor: '#3d4866', padding: 10, margin: 10, borderRadius: 20}}>
+                            <Text style={{color: 'white', fontSize: 18}}>{link.url}</Text>
+                            <TouchableOpacity style={{backgroundColor: '', }}>
+                                <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold'}}>Remove</Text>
+                            </TouchableOpacity>
                         </View>
                     )}
                 </ScrollView>

@@ -1,19 +1,17 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm";
+import {Entity, Column, PrimaryGeneratedColumn} from "typeorm";
 
 
-@Entity()
+@Entity('sources')
 export class SourceLink {
 
     constructor(url : string) {
         this.url = url
     }
 
-    // @ts-ignore
-    @PrimaryGeneratedColumn
+    @PrimaryGeneratedColumn()
     id: number
 
-    // @ts-ignore
-    @Column
+    @Column()
     url : string
 
 }

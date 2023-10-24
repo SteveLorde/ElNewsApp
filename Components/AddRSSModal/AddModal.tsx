@@ -11,13 +11,8 @@ export function AddModal({ visible, CloseWindow }) {
     }
 
     async function SubmitSource() {
-        let check = await AddLink(inputValue)
-        if (check) {
-            CloseWindow()
-        }
-        else {
-            Alert.alert("ADDING LINk FAILED")
-        }
+        await AddLink(inputValue)
+        CloseWindow()
     }
 
     return (

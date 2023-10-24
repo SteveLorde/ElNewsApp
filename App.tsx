@@ -9,32 +9,14 @@ import {registerRootComponent} from "expo";
 import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {RSSMenu} from "./Components/RSSMenu/RSSMenu";
-
-export const AppDataSource = new DataSource({
-  type: 'react-native',
-  database: 'database',
-  location: 'default',
-  entities: [SourceLink],
-  synchronize: true
-})
+import SQLite from 'react-native-sqlite-storage'
+import {AppDataSource} from "./Services/Database/DatabaseSetup";
 
 
 export default function App() {
 
-
-  function StartDatabase() {
-    try {
-      AppDataSource.initialize()
-      console.log("Database Connection Successful")
-    }
-    catch (err) {
-      console.error("Database connection FAILED " + err)
-    }
-  }
-
-  useEffect(() => {
-    StartDatabase()
-  }, []);
+  //Initialize Database
+  AppDataSource.initialize()
 
   const Stack = createNativeStackNavigator();
 

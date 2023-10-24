@@ -1,9 +1,8 @@
-import {AppDataSource} from "../../App";
 import {SourceLink} from "../../Data/Models/SourceLink";
 import axios from "axios";
 import rssParser from 'react-native-rss-parser';
 import {RSS} from "../../Data/Models/RSS";
-
+import {AppDataSource} from "../Database/DatabaseSetup";
 
 
 let AllRSS : RSS[] = []
@@ -24,10 +23,11 @@ export async function GetRSS() {
         for (let i = 0; i < 4; i++)
         {
             let feeditem = rssData.items[i]
+            let publishdatecheck = ParseArabicDateStrings(feeditem.published)
             let newfeed : RSS = {
                 Title: feeditem.title,
                 imageurl: feeditem.itunes.image,
-                published: feeditem.published,
+                published: publishdatecheck,
                 source: rssData.title,
                 url: feeditem.links.map(z => z.url).toString()
             }
@@ -41,37 +41,64 @@ export async function AddLink(url : string) {
     try {
         let newsource = new  SourceLink(url)
         await AppDataSource.manager.save(newsource)
-        return true
+        console.log("Adding Link Successful")
     }
     catch (err) {
-        console.log("adding new source failed" + err)
+        console.log("Adding Link FAILED: " + err)
     }
 }
 
 export async function GetSources() {
-    return await AppDataSource.manager.find(SourceLink)
+    try {
+        return await AppDataSource.manager.find(SourceLink)
+    }
+    catch (err) {
+        console.log("Get Links Failed: " + err)
+    }
 }
 
 export async function DeleteLinks() {
     try {
         await AppDataSource.manager.clear(SourceLink)
-        return true
     }
     catch (err) {
-        console.log("Deleting All source links failed")
+        console.log("Deleting All Links failed: " + err)
     }
-
 }
 
 export async function DeleteLink(id : number) {
-    try {
         await AppDataSource.manager.delete(SourceLink, id)
-    }
-    catch (err) {
-        console.log("Deleting source link of id" + id + "failed")
-    }
 }
 
 export function SortRSS() {
 
+}
+
+function ParseArabicDateStrings(arabicdate : string) {
+
+    const arabicRegex = /[\u0600-\u06FF\u0750-\u077F]/
+    if (!arabicRegex.test(arabicdate)) {
+        return null
+    }
+
+    const [, day, month, year, time, period] = arabicdate.match(/(\d+)\s+(\S+)\s+(\d+)\s+(\d+:\d+)\s+(\S+)/)
+
+    const monthMappings: { [key: string]: string } = {
+        "يناير": "January",
+        "فبراير": "February",
+        "مارس": "March",
+        "أبريل": "April",
+        "مايو": "May",
+        "يونيو": "June",
+        "يوليو": "July",
+        "أغسطس": "August",
+        "سبتمبر": "September",
+        "أكتوبر": "October",
+        "نوفمبر": "November",
+        "ديسمبر": "December"
+    }
+
+    const englishMonth = monthMappings[month];
+
+    return `${englishMonth} ${day}, ${year} ${time} ${period}`
 }
