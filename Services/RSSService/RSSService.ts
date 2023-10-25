@@ -66,8 +66,14 @@ export async function DeleteLinks() {
     }
 }
 
-export async function DeleteLink(id : number) {
+export async function DeleteLinkFromDatabase(id : number) {
+    try {
         await AppDataSource.manager.delete(SourceLink, id)
+        console.log('Deleted saved source successfully')
+    }
+    catch (err) {
+        console.log('Deleting saved source FAILED ' + err)
+    }
 }
 
 export function SortRSS() {

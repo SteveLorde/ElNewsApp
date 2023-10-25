@@ -1,6 +1,6 @@
 import {ScrollView, Text, TouchableOpacity, View} from "react-native";
 import {useEffect, useState} from "react";
-import {DeleteLinks, GetSources} from "../../Services/RSSService/RSSService";
+import {DeleteLinkFromDatabase, DeleteLinks, GetSources} from "../../Services/RSSService/RSSService";
 import {AddModal} from "../AddRSSModal/AddModal";
 import {SourceLink} from "../../Data/Models/SourceLink";
 
@@ -25,6 +25,11 @@ export function RSSMenu({navigation} : any) {
 
     async function ClearLinks() {
         await DeleteLinks()
+        GetLinks()
+    }
+
+    async function DeleteLink(linkid : number) {
+        await DeleteLinkFromDatabase(linkid)
         GetLinks()
     }
 
@@ -55,10 +60,10 @@ export function RSSMenu({navigation} : any) {
 
                 <ScrollView style={{backgroundColor: '#191923'}}>
                     {links.map( (link : SourceLink) =>
-                        <View style={{backgroundColor: '#3d4866', padding: 10, margin: 10, borderRadius: 20}}>
+                        <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' ,backgroundColor: '#3d4866', padding: 15, margin: 10, borderRadius: 10}}>
                             <Text style={{color: 'white', fontSize: 18}}>{link.url}</Text>
-                            <TouchableOpacity style={{backgroundColor: '', }}>
-                                <Text style={{color: 'white', fontSize: 15, fontWeight: 'bold'}}>Remove</Text>
+                            <TouchableOpacity onPress={ () => DeleteLink(link.id) } style={{backgroundColor: '#de3838', padding: 10, borderRadius: 100 }}>
+                                <Text style={{color: 'white', fontSize: 15, fontWeight: '900'}}>X</Text>
                             </TouchableOpacity>
                         </View>
                     )}

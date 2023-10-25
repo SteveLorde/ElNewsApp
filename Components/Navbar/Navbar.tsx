@@ -17,7 +17,7 @@ export function Navbar({navigation} : any) {
     return (
         <>
             <View style={{backgroundColor: '#3d4866', padding: 20, height:110, flexDirection: 'row' ,justifyContent: 'space-between', alignItems: 'center', }}>
-                <Text style={{color: 'white', fontSize: 16}}>ElNews App</Text>
+                <Text style={{color: 'white', fontSize: 16, marginTop: 200}}>ElNews App</Text>
                 <TouchableOpacity onPress={ () => navigatetoRSSMenu() } style={{padding: 10, borderRadius: 20, backgroundColor: '#3d3866'}}>
                     <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>RSS Menu</Text>
                 </TouchableOpacity>
