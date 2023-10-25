@@ -14,13 +14,12 @@ export function NewsScreen() {
     }
 
     useEffect(() => {
-        GetNews()
+        setInterval(GetNews,50000)
     }, []);
 
     useEffect(() => {
         Animated.timing(fadeAnim,{toValue: 1, duration: 3000, useNativeDriver: true,}).start()
     }, []);
-
 
     return (
         <>
