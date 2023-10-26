@@ -5,13 +5,24 @@ import {RSS} from "../../Data/Models/RSS";
 import {AppDataSource} from "../Database/DatabaseSetup";
 
 
-let AllRSS : RSS[] = []
-
 export async function GetRSS() {
+    try {
+        return await FetchRSS()
+    }
+    catch (err) {
+        console.log("GetRSS Failed" + err)
+    }
+}
+
+async function FetchRSS() {
+    let AllRSS : RSS[] = []
     //1-get links
     let rsslinks = await GetSources()
+    if (rsslinks.length == 0) {
+        AllRSS = []
+    }
     for (let i = 0; i < rsslinks.length; i++) {
-        console.log("rss source links: " + rsslinks[i].url)
+        console.log("fetching news from rss source links: " + rsslinks[i].url)
     }
     //2-iterate over links and fetch rss
     for (let i = 0; i < rsslinks.length; i++)
@@ -23,11 +34,11 @@ export async function GetRSS() {
         for (let i = 0; i < 4; i++)
         {
             let feeditem = rssData.items[i]
-            let publishdatecheck = ParseArabicDateStrings(feeditem.published)
+            //let publishdatecheck = ParseArabicDateStrings(feeditem.published)
             let newfeed : RSS = {
                 Title: feeditem.title,
-                imageurl: feeditem.itunes.image,
-                published: publishdatecheck,
+                imageurl: feeditem.enclosures.map(x => x.url).toString(),
+                published: feeditem.published,
                 source: rssData.title,
                 url: feeditem.links.map(z => z.url).toString()
             }
@@ -60,6 +71,7 @@ export async function GetSources() {
 export async function DeleteLinks() {
     try {
         await AppDataSource.manager.clear(SourceLink)
+        console.log("Deleted All Links")
     }
     catch (err) {
         console.log("Deleting All Links failed: " + err)

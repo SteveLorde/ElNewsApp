@@ -14,11 +14,11 @@ export function NewsScreen() {
     }
 
     useEffect(() => {
-        setInterval(GetNews,50000)
+
     }, []);
 
     useEffect(() => {
-        Animated.timing(fadeAnim,{toValue: 1, duration: 3000, useNativeDriver: true,}).start()
+        //Animated.timing(fadeAnim,{toValue: 1, duration: 3000, useNativeDriver: true,}).start()
     }, []);
 
     return (
@@ -28,16 +28,16 @@ export function NewsScreen() {
                     <Text  style={{color: 'white', fontSize: 20, fontWeight: 'bold', textAlign: 'center'}}>Refresh</Text>
                 </TouchableOpacity>
 
-                {news.map( (rss : RSS) =>
+                {news?.map( (rss : RSS) =>
                 <View style={{backgroundColor: '#'}}>
-                    <Animated.View style={{flex :1, flexDirection: 'row',backgroundColor: '#3d4866', padding: 10, margin: 10, borderRadius: 20, opacity: fadeAnim}}>
+                    <View style={{flex :1, flexDirection: 'row',backgroundColor: '#3d4866', padding: 10, margin: 10, borderRadius: 20}}>
                         <Image source={rss.imageurl} style={{height: 100}} />
                         <View>
                             <Text style={{ color: 'white', fontSize: 16}}>{rss.source}</Text>
                             <Text style={{ color: 'white', fontSize: 16}}>{rss.published}</Text>
                             <Text style={{ color: 'white', fontSize: 24, fontWeight: '900'}}>{rss.Title}</Text>
                         </View>
-                    </Animated.View>
+                    </View>
                 </View>
                 )}
             </ScrollView>
