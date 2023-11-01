@@ -5,6 +5,8 @@ import {RSS} from "../../Data/Models/RSS";
 import {AppDataSource} from "../Database/DatabaseSetup";
 
 
+//const domparser = new DOMParser()
+
 export async function GetRSS() {
     try {
         return await FetchRSS()
@@ -21,26 +23,25 @@ async function FetchRSS() {
     if (rsslinks.length == 0) {
         AllRSS = []
     }
-    for (let i = 0; i < rsslinks.length; i++) {
-        console.log("fetching news from rss source links: " + rsslinks[i].url)
-    }
     //2-iterate over links and fetch rss
     for (let i = 0; i < rsslinks.length; i++)
     {
         let rsslink = rsslinks[i].url
         let response = await axios.get(rsslink)
         let rssData = await rssParser.parse(response.data)
-
-        for (let i = 0; i < 4; i++)
+        for (let i = 0; i < 5; i++)
         {
+            //let thumbnailhtmlelement = "media:thumbnail"
+            //let thumbnailurl = parsedFeed.querySelector(thumbnailhtmlelement)
+            //let thumbnailstring = thumbnailurl.getAttribute('url')
             let feeditem = rssData.items[i]
             //let publishdatecheck = ParseArabicDateStrings(feeditem.published)
             let newfeed : RSS = {
                 Title: feeditem.title,
-                imageurl: feeditem.enclosures.map(x => x.url).toString(),
+                imageurl: feeditem.enclosures[0]?.url,
                 published: feeditem.published,
                 source: rssData.title,
-                url: feeditem.links.map(z => z.url).toString()
+                url: feeditem.links[0]?.url
             }
             AllRSS.push(newfeed)
         }
@@ -115,3 +116,13 @@ function ParseArabicDateStrings(arabicdate : string) {
     const englishMonth = monthMappings[month];
     return `${englishMonth} ${day}, ${year} ${time} ${period}`
 }
+
+
+
+
+
+/*TESTING SAVED LINKS
+for (let i = 0; i < rsslinks.length; i++) {
+    console.log("fetching news from rss source links: " + rsslinks[i].url)
+}
+ */

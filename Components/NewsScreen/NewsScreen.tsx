@@ -1,4 +1,4 @@
-import {Animated, ScrollView, Text, TouchableOpacity, View} from "react-native";
+import {Animated, ScrollView, Text, TouchableOpacity, View, Linking} from "react-native";
 import React, {useEffect, useRef, useState} from "react";
 import { Image } from 'expo-image';
 import {RSS} from "../../Data/Models/RSS";
@@ -13,12 +13,16 @@ export function NewsScreen() {
         setNews(allnews)
     }
 
-    useEffect(() => {
+    function DirectToURL(url : string) {
+        Linking.openURL(url)
+    }
 
+    useEffect(() => {
+        setInterval(GetNews,100000)
     }, []);
 
     useEffect(() => {
-        //Animated.timing(fadeAnim,{toValue: 1, duration: 3000, useNativeDriver: true,}).start()
+        Animated.timing(fadeAnim,{toValue: 1, duration: 3000, useNativeDriver: true,}).start()
     }, []);
 
     return (
@@ -30,16 +34,21 @@ export function NewsScreen() {
 
                 {news?.map( (rss : RSS) =>
                 <View style={{backgroundColor: '#'}}>
-                    <View style={{flex :1, flexDirection: 'row',backgroundColor: '#3d4866', padding: 10, margin: 10, borderRadius: 20}}>
-                        <Image source={rss.imageurl} style={{height: 100}} />
-                        <View>
-                            <Text style={{ color: 'white', fontSize: 16}}>{rss.source}</Text>
-                            <Text style={{ color: 'white', fontSize: 16}}>{rss.published}</Text>
-                            <Text style={{ color: 'white', fontSize: 24, fontWeight: '900'}}>{rss.Title}</Text>
-                        </View>
-                    </View>
+                    <Animated.View style={{flex :1, flexDirection: 'row',backgroundColor: '#3d4866', padding: 10, margin: 10, borderRadius: 20, opacity: fadeAnim }}>
+                        <TouchableOpacity onPress={ () => DirectToURL(rss.url) }>
+                            <Image source={rss.imageurl} style={{width: 'auto'}} />
+                            <View>
+                                <Text style={{ color: 'white', fontSize: 16, margin:2}}>{rss.source}</Text>
+                                <Text style={{ color: 'white', fontSize: 16, margin:2}}>{rss.published}</Text>
+                                <Text style={{ color: 'white', fontSize: 24, fontWeight: '900', margin:2}}>{rss.Title}</Text>
+                            </View>
+                        </TouchableOpacity>
+                    </Animated.View>
                 </View>
                 )}
+                <View style={{backgroundColor: "#7e818f", height: 100}}>
+                    <Text style={{color: 'white', fontSize: 24, fontWeight: 'bold'}}>End Of Feed</Text>
+                </View>
             </ScrollView>
         </>
     );
