@@ -1,9 +1,11 @@
 import {SourceLink} from "../../Data/Models/SourceLink"
 import axios from "axios"
-import rssParser from 'react-native-rss-parser'
 import {RSS} from "../../Data/Models/RSS"
 import {AppDataSource} from "../Database/DatabaseSetup"
 import * as htmlparser2 from 'htmlparser2'
+import * as cheerio from 'cheerio';
+
+
 
 export async function GetRSS() {
     try {
@@ -27,13 +29,20 @@ async function FetchRSS() {
         let rsslink = rsslinks[i].url
         let response = await axios.get(rsslink)
         let rssData = htmlparser2.parseFeed(response.data)
+        const feeditemsxml = cheerio.load(response.data)
+        let links : string[] = []
+        let imagelements = 'media\\\\:thumbnail' || 'enclosure'
+        let thumbnaillink = feeditemsxml(imagelements).each( (index,value) => {
+            let link = feeditemsxml(value).attr('url')
+            console.log("thumb url = " + link)
+            links.push(link)
+        })
         for (let i = 0; i < 5; i++)
         {
             let feeditem = rssData.items[i]
-
             let newfeed : RSS = {
                 Title: feeditem.title,
-                imageurl: 'test',
+                imageurl: links[i],
                 published: feeditem.pubDate.toDateString(),
                 source: rssData.title,
                 url: feeditem.link

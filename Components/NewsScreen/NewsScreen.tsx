@@ -22,7 +22,7 @@ export function NewsScreen() {
     }, []);
 
     useEffect(() => {
-        Animated.timing(fadeAnim,{toValue: 1, duration: 3000, useNativeDriver: true,}).start()
+        Animated.timing(fadeAnim,{toValue: 1, duration: 30000, useNativeDriver: true,}).start()
     }, []);
 
     return (
@@ -34,9 +34,9 @@ export function NewsScreen() {
 
                 {news?.map( (rss : RSS) =>
                 <View style={{backgroundColor: '#'}}>
-                    <Animated.View style={{flex :1, flexDirection: 'row',backgroundColor: '#3d4866', padding: 10, margin: 10, borderRadius: 20, opacity: fadeAnim }}>
-                        <TouchableOpacity onPress={ () => DirectToURL(rss.url) }>
-                            <Image source={{uri: rss.imageurl}} style={{height: 100}} />
+                    <Animated.View style={{flex :1, flexDirection: 'row',backgroundColor: '#3d4866', padding: 0, margin: 10, borderRadius: 20, opacity: fadeAnim }}>
+                        <TouchableOpacity style={{flexDirection: 'column', flex: 1}} onPress={ () => DirectToURL(rss.url) }>
+                            <Image source={{uri: rss.imageurl}} style={{height: 200, borderTopRightRadius: 20, borderTopLeftRadius: 20}} />
                             <View>
                                 <Text style={{ color: 'white', fontSize: 16, margin:2}}>{rss.source}</Text>
                                 <Text style={{ color: 'white', fontSize: 16, margin:2}}>{rss.published}</Text>
