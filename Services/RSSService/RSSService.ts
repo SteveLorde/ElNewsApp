@@ -1,11 +1,9 @@
-import {SourceLink} from "../../Data/Models/SourceLink";
-import axios from "axios";
-import rssParser from 'react-native-rss-parser';
-import {RSS} from "../../Data/Models/RSS";
-import {AppDataSource} from "../Database/DatabaseSetup";
-
-
-//const domparser = new DOMParser()
+import {SourceLink} from "../../Data/Models/SourceLink"
+import axios from "axios"
+import rssParser from 'react-native-rss-parser'
+import {RSS} from "../../Data/Models/RSS"
+import {AppDataSource} from "../Database/DatabaseSetup"
+import * as htmlparser2 from 'htmlparser2'
 
 export async function GetRSS() {
     try {
@@ -28,20 +26,17 @@ async function FetchRSS() {
     {
         let rsslink = rsslinks[i].url
         let response = await axios.get(rsslink)
-        let rssData = await rssParser.parse(response.data)
+        let rssData = htmlparser2.parseFeed(response.data)
         for (let i = 0; i < 5; i++)
         {
-            //let thumbnailhtmlelement = "media:thumbnail"
-            //let thumbnailurl = parsedFeed.querySelector(thumbnailhtmlelement)
-            //let thumbnailstring = thumbnailurl.getAttribute('url')
             let feeditem = rssData.items[i]
-            //let publishdatecheck = ParseArabicDateStrings(feeditem.published)
+
             let newfeed : RSS = {
                 Title: feeditem.title,
-                imageurl: feeditem.enclosures[0]?.url,
-                published: feeditem.published,
+                imageurl: 'test',
+                published: feeditem.pubDate.toDateString(),
                 source: rssData.title,
-                url: feeditem.links[0]?.url
+                url: feeditem.link
             }
             AllRSS.push(newfeed)
         }
