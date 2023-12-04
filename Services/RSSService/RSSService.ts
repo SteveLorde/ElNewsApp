@@ -31,8 +31,7 @@ async function FetchRSS() {
         let rssData = htmlparser2.parseFeed(response.data)
         const feeditemsxml = cheerio.load(response.data)
         let links : string[] = []
-        let imagelements = 'media\\\\:thumbnail' || 'enclosure'
-        let thumbnaillink = feeditemsxml(imagelements).each( (index,value) => {
+        let thumbnaillink = feeditemsxml('media\\:thumbnail, enclosure').each( (index,value) => {
             let link = feeditemsxml(value).attr('url')
             console.log("thumb url = " + link)
             links.push(link)

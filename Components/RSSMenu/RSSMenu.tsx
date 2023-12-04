@@ -44,10 +44,6 @@ export function RSSMenu({navigation} : any) {
     return (
         <>
             <View style={{backgroundColor: '#191923', flex: 1, flexDirection: 'column'}}>
-                <TouchableOpacity style={{backgroundColor: '#3d4866', padding: 10, margin: 10, borderRadius: 20}} onPress={ () => GoBack() }>
-                    <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold', textAlign: 'center'}}>Go Back</Text>
-                </TouchableOpacity>
-
                 <TouchableOpacity style={{backgroundColor: '#3d4866', padding: 10, margin: 10, borderRadius: 20}} onPress={() => openModal() }>
                     <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold', textAlign: 'center'}}>Add News (RSS) Link</Text>
                 </TouchableOpacity>
