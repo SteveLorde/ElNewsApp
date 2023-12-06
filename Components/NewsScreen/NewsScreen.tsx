@@ -22,7 +22,7 @@ export function NewsScreen() {
     }, []);
 
     useEffect(() => {
-        Animated.timing(fadeAnim,{toValue: 1, duration: 20000, useNativeDriver: true,}).start()
+        Animated.timing(fadeAnim,{toValue: 1, duration: 2000, useNativeDriver: true,}).start()
     }, []);
 
     return (
