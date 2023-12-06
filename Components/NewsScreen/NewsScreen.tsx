@@ -18,11 +18,11 @@ export function NewsScreen() {
     }
 
     useEffect(() => {
-        setInterval(GetNews,100000)
+        setInterval(GetNews,50000)
     }, []);
 
     useEffect(() => {
-        Animated.timing(fadeAnim,{toValue: 1, duration: 30000, useNativeDriver: true,}).start()
+        Animated.timing(fadeAnim,{toValue: 1, duration: 20000, useNativeDriver: true,}).start()
     }, []);
 
     return (
@@ -34,20 +34,19 @@ export function NewsScreen() {
 
                 {news?.map( (rss : RSS) =>
                 <View style={{backgroundColor: '#'}}>
-                    <Animated.View style={{flex :1, flexDirection: 'row',backgroundColor: '#3d4866', padding: 10, margin: 10, borderRadius: 20, opacity: fadeAnim }}>
+                    <Animated.View style={{flex :1, flexDirection: 'row',backgroundColor: '#3d4866', margin: 10, borderRadius: 20, opacity: fadeAnim }}>
                         <TouchableOpacity key={rss.Title} style={{flexDirection: 'row', flex: 1}} onPress={ () => DirectToURL(rss.url) }>
                             <Image source={{uri: rss.imageurl}} style={{width: 100, maxHeight: 200 , borderRadius: 20 , marginRight: 10}} />
-                            <View style={{ flex: 1}}>
-                                <Text style={{ color: 'white', fontSize: 16, margin:2}}>{rss.source}</Text>
-                                <Text style={{ color: '#656565', fontSize: 16, margin:2}}>{rss.published}</Text>
-                                <Text style={{ color: 'white', fontSize: 24, fontWeight: '900', margin:2}}>{rss.Title}</Text>
+                            <View style={{ flex: 1, paddingRight: 10, paddingTop: 10 , paddingBottom: 10}}>
+                                <Text style={{ color: 'white', fontSize: 14, margin:2}}>{rss.source}</Text>
+                                <Text style={{ color: '#585865', fontSize: 12, margin:2}}>{rss.published}</Text>
+                                <Text style={{ color: 'white', fontSize: 20, fontWeight: '900', margin:2}}>{rss.Title}</Text>
                             </View>
                         </TouchableOpacity>
                     </Animated.View>
                 </View>
                 )}
-                <View style={{backgroundColor: "#383e56", flex: 1, padding: 5}}>
-                    <Text style={{color: 'white', fontSize: 24, fontWeight: 'bold'}}>End Of Feed</Text>
+                <View style={{backgroundColor: "#383e56", flex: 1, padding: 5, borderRadius: 20, margin: 10, height: 3}}>
                 </View>
             </ScrollView>
         </>
