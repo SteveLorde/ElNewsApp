@@ -38,9 +38,9 @@ export function NewsScreen() {
                         <TouchableOpacity key={rss.Title} style={{flexDirection: 'row', flex: 1}} onPress={ () => DirectToURL(rss.url) }>
                             <Image source={{uri: rss.imageurl}} style={{width: 100, maxHeight: 200 , borderRadius: 20 , marginRight: 10}} />
                             <View style={{ flex: 1, paddingRight: 10, paddingTop: 10 , paddingBottom: 10}}>
-                                <Text style={{ color: 'white', fontSize: 14, margin:2}}>{rss.source}</Text>
-                                <Text style={{ color: '#585865', fontSize: 12, margin:2}}>{rss.published}</Text>
-                                <Text style={{ color: 'white', fontSize: 20, fontWeight: '900', margin:2}}>{rss.Title}</Text>
+                                <Text style={{ color: 'white', fontSize: 12, margin:2}}>{rss.source}</Text>
+                                <Text style={{ color: '#585865', fontSize: 10, margin:2}}>{rss.published}</Text>
+                                <Text style={{ color: 'white', fontSize: 18, fontWeight: '900', margin:2}}>{rss.Title}</Text>
                             </View>
                         </TouchableOpacity>
                     </Animated.View>
