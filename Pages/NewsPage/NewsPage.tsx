@@ -2,7 +2,6 @@ import {Animated, ScrollView, Text, TouchableOpacity, View, Linking} from "react
 import React, {useEffect, useRef, useState} from "react";
 import { Image } from 'expo-image';
 import {RSS} from "../../Data/Models/RSS";
-import {GetRSS} from "../../Services/NewsService/NewsService";
 
 export function NewsPage() {
     const [news,setNews] = useState<RSS[]>([])

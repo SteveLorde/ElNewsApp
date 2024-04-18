@@ -1,6 +1,6 @@
 
 import {DataSource} from "typeorm";
-import {SourceLink} from "./Data/Models/SourceLink";
+import {NewsSource} from "./Data/Models/NewsSource";
 import "reflect-metadata"
 import {useEffect} from "react";
 import {Navbar} from "./Components/Navbar/Navbar";
@@ -11,6 +11,7 @@ import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {MenuPage} from "./Pages/NewsMenuPage/MenuPage";
 import SQLite from 'react-native-sqlite-storage'
 import {AppDataSource} from "./Data/DatabaseSetup";
+import {MainContextProvider} from "./Services/GlobalStateStore/MainContext";
 
 
 export default function App() {
@@ -23,12 +24,14 @@ export default function App() {
 
   return (
       <>
-        <NavigationContainer>
-          <Stack.Navigator initialRouteName='NewsPage' screenOptions={{header: Navbar}}>
-            <Stack.Screen name="NewsScreen" component={NewsPage} />
-            <Stack.Screen name="RSSMenu" component={MenuPage} />
-          </Stack.Navigator>
-        </NavigationContainer>
+          <MainContextProvider>
+              <NavigationContainer>
+                  <Stack.Navigator initialRouteName='NewsPage' screenOptions={{header: Navbar}}>
+                      <Stack.Screen name="NewsScreen" component={NewsPage} />
+                      <Stack.Screen name="RSSMenu" component={MenuPage} />
+                  </Stack.Navigator>
+              </NavigationContainer>
+          </MainContextProvider>
       </>
   )
 }

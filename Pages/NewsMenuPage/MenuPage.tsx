@@ -1,12 +1,13 @@
 import {ScrollView, Text, TouchableOpacity, View} from "react-native";
-import {useEffect, useState} from "react";
-import {DeleteLinkFromDatabase, DeleteLinks, GetSources} from "../../Services/NewsService/NewsService";
+import {useContext, useEffect, useState} from "react";
 import {AddModal} from "../../Components/AddRSSModal/AddModal";
-import {SourceLink} from "../../Data/Models/SourceLink";
+import {NewsSource} from "../../Data/Models/NewsSource";
+import {MainContext} from "../../Services/GlobalStateStore/MainContext";
 
 export function MenuPage({navigation} : any) {
+    const {newsService} = useContext(MainContext)
 
-    const [links,setLinks] = useState<SourceLink[]>([])
+    const [links,setLinks] = useState<NewsSource[]>([])
     const [modalVisible, setModalVisible] = useState<boolean>(false);
 
     const openModal = () => {
@@ -59,7 +60,7 @@ export function MenuPage({navigation} : any) {
                 </TouchableOpacity>
 
                 <ScrollView style={{backgroundColor: '#191923'}}>
-                    {links.map( (link : SourceLink) =>
+                    {links.map( (link : NewsSource) =>
                         <View style={{flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' ,backgroundColor: '#3d4866', padding: 15, margin: 10, borderRadius: 10}}>
                             <TouchableOpacity onPress={ () => DeleteLink(link.id) }>
                                 <Text style={{color: 'white', fontSize: 18}}>{link.url}</Text>

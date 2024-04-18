@@ -1,11 +1,11 @@
 import {DataSource} from "typeorm";
-import {SourceLink} from "./Models/SourceLink";
+import {NewsSource} from "./Models/NewsSource";
 
 export const AppDataSource = new DataSource({
     type: 'expo',
     driver: require('expo-sqlite'),
-    database: 'database',
-    entities: [SourceLink],
+    database: 'newssources.db',
+    entities: [NewsSource],
     synchronize: true
 })
 
