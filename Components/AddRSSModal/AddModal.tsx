@@ -1,6 +1,6 @@
 import {Modal, Text, TextInput, TouchableOpacity, View} from "react-native";
 import {useState} from "react";
-import {AddLink} from "../../Services/RSSService/RSSService";
+import {AddLink} from "../../Services/NewsService/NewsService";
 
 export function AddModal({ visible, CloseWindow }) {
 

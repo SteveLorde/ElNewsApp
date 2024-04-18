@@ -17,39 +17,48 @@ export async function GetRSS() {
 }
 
 async function FetchRSS() {
-    let AllRSS : RSS[] = []
-    //1-get links
-    let rsslinks = await GetSources()
-    if (rsslinks.length == 0) {
-        AllRSS = []
-    }
-    //2-iterate over links and fetch rss
-    for (let i = 0; i < rsslinks.length; i++)
-    {
-        let rsslink = rsslinks[i].url
-        let response = await axios.get(rsslink)
-        let rssData = htmlparser2.parseFeed(response.data)
-        const feeditemsxml = cheerio.load(response.data)
-        let links : string[] = []
-        let thumbnaillink = feeditemsxml('media\\:thumbnail, enclosure').each( (index,value) => {
-            let link = feeditemsxml(value).attr('url')
-            console.log("thumb url = " + link)
-            links.push(link)
-        })
-        for (let i = 0; i < 5; i++)
-        {
-            let feeditem = rssData.items[i]
-            let newfeed : RSS = {
-                Title: feeditem.title,
-                imageurl: links[i],
-                published: feeditem.pubDate.toDateString(),
-                source: rssData.title,
-                url: feeditem.link
-            }
-            AllRSS.push(newfeed)
+    try {
+        let AllRSS : RSS[] = []
+        //1-get links
+        let rsslinks = await GetSources()
+        /*
+        //WTF WHY?!
+        if (rsslinks.length == 0) {
+            AllRSS = []
         }
+         */
+
+        //2-iterate over links and fetch rss
+        for (let i = 0; i < rsslinks.length; i++)
+        {
+            let rsslink = rsslinks[i].url
+            let response = await axios.get(rsslink)
+            let rssData = htmlparser2.parseFeed(response.data)
+            const feeditemsxml = cheerio.load(response.data)
+            let links : string[] = []
+            let thumbnaillink = feeditemsxml('media\\:thumbnail, enclosure').each( (index,value) => {
+                let link = feeditemsxml(value).attr('url')
+                console.log("thumb url = " + link)
+                links.push(link)
+            })
+            for (let i = 0; i < 5; i++)
+            {
+                let feeditem = rssData.items[i]
+                let newfeed : RSS = {
+                    Title: feeditem.title,
+                    imageurl: links[i],
+                    published: feeditem.pubDate.toDateString(),
+                    source: rssData.title,
+                    url: feeditem.link
+                }
+                AllRSS.push(newfeed)
+            }
+        }
+        return AllRSS
     }
-    return AllRSS
+    catch (err) {
+        console.log(err)
+    }
 }
 
 export async function AddLink(url : string) {

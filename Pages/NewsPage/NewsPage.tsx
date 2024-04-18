@@ -2,9 +2,9 @@ import {Animated, ScrollView, Text, TouchableOpacity, View, Linking} from "react
 import React, {useEffect, useRef, useState} from "react";
 import { Image } from 'expo-image';
 import {RSS} from "../../Data/Models/RSS";
-import {GetRSS} from "../../Services/RSSService/RSSService";
+import {GetRSS} from "../../Services/NewsService/NewsService";
 
-export function NewsScreen() {
+export function NewsPage() {
     const [news,setNews] = useState<RSS[]>([])
     const fadeAnim = useRef(new Animated.Value(0)).current;
 
@@ -18,11 +18,7 @@ export function NewsScreen() {
     }
 
     useEffect(() => {
-        setInterval(GetNews,50000)
-    }, []);
-
-    useEffect(() => {
-        Animated.timing(fadeAnim,{toValue: 1, duration: 2000, useNativeDriver: true,}).start()
+        Animated.timing(fadeAnim,{toValue: 1, duration: 3000, useNativeDriver: true,}).start()
     }, []);
 
     return (
