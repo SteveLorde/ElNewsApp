@@ -1,7 +1,7 @@
 import {SourceLink} from "../../Data/Models/SourceLink"
 import axios from "axios"
 import {RSS} from "../../Data/Models/RSS"
-import {AppDataSource} from "../Database/DatabaseSetup"
+import {AppDataSource} from "../../Data/DatabaseSetup"
 import * as htmlparser2 from 'htmlparser2'
 import * as cheerio from 'cheerio';
 

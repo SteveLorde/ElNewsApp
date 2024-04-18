@@ -10,7 +10,7 @@ import {NavigationContainer} from "@react-navigation/native";
 import {createNativeStackNavigator} from "@react-navigation/native-stack";
 import {MenuPage} from "./Pages/NewsMenuPage/MenuPage";
 import SQLite from 'react-native-sqlite-storage'
-import {AppDataSource} from "./Services/Database/DatabaseSetup";
+import {AppDataSource} from "./Data/DatabaseSetup";
 
 
 export default function App() {

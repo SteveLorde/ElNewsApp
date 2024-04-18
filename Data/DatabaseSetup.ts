@@ -1,5 +1,5 @@
 import {DataSource} from "typeorm";
-import {SourceLink} from "../../Data/Models/SourceLink";
+import {SourceLink} from "./Models/SourceLink";
 
 export const AppDataSource = new DataSource({
     type: 'expo',
