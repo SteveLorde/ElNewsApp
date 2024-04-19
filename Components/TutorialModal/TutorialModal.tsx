@@ -16,7 +16,7 @@ export function TutorialModal({isVisible,CloseTutorial}) {
             <Modal style={tutorialstyle.modal} visible={isVisible}>
                 <View style={tutorialstyle.tutorialcontainer}>
                     <View>
-                        <ScrollView style={tutorialstyle.tutorialscroller} ref={scrollViewRef}>
+                        <ScrollView horizontal pagingEnabled showsHorizontalScrollIndicator={true} style={tutorialstyle.tutorialscroller} ref={scrollViewRef}>
                             {/*FILL IMAGE SOURCE WITH LOCATION OF TUTORIAL IMAGES*/}
                             <Image source={""} style={tutorialstyle.image} />
                         </ScrollView>

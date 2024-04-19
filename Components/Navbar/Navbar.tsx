@@ -1,31 +1,28 @@
 import {Text, TouchableOpacity, View} from "react-native";
-import {useState} from "react";
-import {selectedmenu, setmenutorss, setmenutonews} from "../../Services/GlobalStateStore/GlobalStateService";
+import {useContext, useState} from "react";
+import {MainContext} from "../../Services/GlobalStateStore/MainContext";
 
 export function Navbar({navigation} : any) {
+    const {selectedPage,setSelectedPage} = useContext(MainContext)
+    const [pagetoswitch, setPageToSwitchTo] = useState("Menu")
 
-    const [switchbutton, setButton] = useState('RSS Menu')
-    const [pagetoswitch, setPageToSwitchTo] = useState("Rss Menu")
-
-    function navigatetoRSSMenu() {
-        setPageToSwitchTo("News Feed")
-        navigation.navigate('RSSMenu')
+    function navigateToMenuPage() {
+        setPageToSwitchTo("News")
+        navigation.navigate('MenuPage')
     }
 
-    function navigatetoNewsScreen() {
-        setPageToSwitchTo("RSS Menu")
-        navigation.navigate('NewsScreen')
+    function navigateToNewsPage() {
+        setPageToSwitchTo("Menu")
+        navigation.navigate('NewsPage')
     }
 
     function navigateMenu() {
-        if (selectedmenu == "RSS Menu")
+        if (selectedPage === 0)
         {
-            setmenutonews()
-            navigatetoRSSMenu()
+            navigateToMenuPage()
         }
-        else if (selectedmenu == "News Feed") {
-            setmenutorss()
-            navigatetoNewsScreen()
+        else if (selectedPage == 1) {
+            navigateToNewsPage()
         }
     }
 
@@ -34,7 +31,7 @@ export function Navbar({navigation} : any) {
             <View style={{backgroundColor: '#3d4866', padding: 20, height:110, flexDirection: 'row' ,justifyContent: 'space-between', alignItems: 'center', }}>
                 <Text style={{color: 'white', fontSize: 16, marginTop: 200}}>ElNews App</Text>
                 <TouchableOpacity onPress={ () => navigateMenu() } style={{padding: 10, borderRadius: 20, backgroundColor: '#3d3866'}}>
-                    <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>{selectedmenu}</Text>
+                    <Text style={{color: 'white', fontSize: 16, fontWeight: 'bold'}}>{pagetoswitch}</Text>
                 </TouchableOpacity>
             </View>
         </>

@@ -35,8 +35,8 @@ export default function App() {
               <TutorialModal isVisible={isTutorialVisible} CloseTutorial={CloseTutorial}/>
               <NavigationContainer>
                   <Stack.Navigator initialRouteName='NewsPage' screenOptions={{header: Navbar}}>
-                      <Stack.Screen name="NewsScreen" component={NewsPage} />
-                      <Stack.Screen name="RSSMenu" component={MenuPage} />
+                      <Stack.Screen name="NewsPage" component={NewsPage} />
+                      <Stack.Screen name="MenuPage" component={MenuPage} />
                   </Stack.Navigator>
               </NavigationContainer>
           </MainContextProvider>
