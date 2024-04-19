@@ -1,14 +1,16 @@
 import {Animated, ScrollView, Text, TouchableOpacity, View, Linking} from "react-native";
-import React, {useEffect, useRef, useState} from "react";
+import React, {useContext, useEffect, useRef, useState} from "react";
 import { Image } from 'expo-image';
 import {RSS} from "../../Data/Models/RSS";
+import {MainContext} from "../../Services/GlobalStateStore/MainContext";
 
 export function NewsPage() {
+    const {newsService} = useContext(MainContext)
     const [news,setNews] = useState<RSS[]>([])
     const fadeAnim = useRef(new Animated.Value(0)).current;
 
     async function GetNews() {
-        let allnews = await GetRSS()
+        let allnews = await newsService.GetRSS()
         setNews(allnews)
     }
 

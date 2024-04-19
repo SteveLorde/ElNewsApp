@@ -20,17 +20,17 @@ export function MenuPage({navigation} : any) {
     }
 
     async function GetLinks() {
-        let links = await GetSources()
+        let links = await newsService.GetSources()
         setLinks(links)
     }
 
     async function ClearLinks() {
-        await DeleteLinks()
+        await newsService.DeleteLinks()
         GetLinks()
     }
 
     async function DeleteLink(linkid : number) {
-        await DeleteLinkFromDatabase(linkid)
+        await newsService.DeleteLinkFromDatabase(linkid)
         GetLinks()
     }
 

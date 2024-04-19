@@ -1,8 +1,9 @@
 import {Modal, Text, TextInput, TouchableOpacity, View} from "react-native";
-import {useState} from "react";
-import {AddLink} from "../../Services/NewsService/NewsService";
+import {useContext, useState} from "react";
+import {MainContext} from "../../Services/GlobalStateStore/MainContext";
 
 export function AddModal({ visible, CloseWindow }) {
+    const {newsService} = useContext(MainContext)
 
     const [inputValue, setInputValue] = useState('');
 
@@ -11,7 +12,7 @@ export function AddModal({ visible, CloseWindow }) {
     }
 
     async function SubmitSource() {
-        await AddLink(inputValue)
+        await newsService.AddLink(inputValue)
         CloseWindow()
     }
 

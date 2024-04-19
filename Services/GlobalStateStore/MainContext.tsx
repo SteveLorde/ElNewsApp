@@ -14,7 +14,7 @@ export const MainContext = createContext<MainContextType>({
     setSelectedPage(_value: ((prevState: number) => number) | number): void {},
 });
 
-export function MainContextProvider({children} : {children: JSX.Element}) {
+export function MainContextProvider({children}) {
     
     const _newsService = new NewsService()
     const [selectedTab, setSelectedTab] = useState(0);
