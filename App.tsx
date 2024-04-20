@@ -12,13 +12,28 @@ import {MenuPage} from "./Pages/MenuPage/MenuPage";
 import {AppDataSource} from "./Data/DatabaseSetup";
 import {MainContextProvider} from "./Services/GlobalStateStore/MainContext";
 import {TutorialModal} from "./Components/TutorialModal/TutorialModal";
-
+import AsyncStorage from '@react-native-async-storage/async-storage'
 
 export default function App() {
     const [isTutorialVisible, setTutorialVisible] = useState<boolean>(true)
 
-    const CloseTutorial = () => {
+    const CloseTutorial = async () => {
+        await DoneTutorial()
         setTutorialVisible(false)
+    }
+
+    async function CheckIfTutorialDone() {
+        const isTutorialDoneKey = await AsyncStorage.getItem('tutorialDone')
+        if (isTutorialDoneKey !== null && isTutorialDoneKey === "true") {
+            setTutorialVisible(false)
+        }
+        else {
+            await AsyncStorage.setItem('tutorialDone', "false")
+        }
+    }
+
+    async function DoneTutorial() {
+        await AsyncStorage.setItem('tutorialDone', "true")
     }
 
   //Initialize Database

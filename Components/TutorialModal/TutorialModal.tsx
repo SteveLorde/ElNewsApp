@@ -2,7 +2,8 @@ import {Button, Modal, ScrollView, View, StyleSheet} from "react-native";
 import {createRef, useRef, useState} from "react";
 import {Image} from "expo-image";
 
-export function TutorialModal({isVisible,CloseTutorial}) {
+
+export function TutorialModal({isVisible,CloseTutorial, DoneTutorial}) {
 
     const [activeImage, setActiveImage] = useState(0);
 
@@ -22,7 +23,7 @@ export function TutorialModal({isVisible,CloseTutorial}) {
                         </ScrollView>
 
                     </View>
-                    <Button title={"Close Tutorial"} onPress={() => CloseTutorial}/>
+                    <Button title={"Close Tutorial"} onPress={() => DoneTutorial}/>
                 </View>
             </Modal>
 
