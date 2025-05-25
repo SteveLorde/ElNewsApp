@@ -1,7 +1,7 @@
 export interface RSS {
     source : string
-    Title : string
+    title : string
     published : string
     url : string
-    imageurl : string
+    imageUrl : string
 }
