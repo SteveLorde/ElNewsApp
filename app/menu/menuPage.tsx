@@ -2,7 +2,7 @@ import { ScrollView, Text, TouchableOpacity, View } from "react-native";
 import { useContext, useEffect, useState } from "react";
 import { AddModal } from "../../components/AddRSSModal/AddModal";
 import { newsSource } from "../../data/Models/NewsSource";
-import { MainContext } from "../../services/GlobalStateStore/MainContext";
+import { MainContext } from "../../services/globalStateStore/MainContext";
 
 export function MenuPage({ navigation }: any) {
   const { newsService } = useContext(MainContext);

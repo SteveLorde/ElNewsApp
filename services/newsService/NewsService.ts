@@ -2,7 +2,6 @@ import { newsSource } from "../../data/Models/NewsSource";
 import axios from "axios";
 import { RSS } from "../../data/Models/RSS";
 import { AppDataSource } from "../../data/DatabaseContext";
-import * as htmlparser2 from "htmlparser2";
 import * as cheerio from "cheerio";
 
 export class NewsService {
@@ -21,13 +20,6 @@ export class NewsService {
       let AllRSS: RSS[] = [];
       //1-get links
       let rsslinks = await this.GetSources();
-      /*
-      //WTF WHY?!
-      if (rsslinks.length == 0) {
-          AllRSS = []
-      }
-       */
-
       //2-iterate over links and fetch rss
       for (let i = 0; i < rsslinks.length; i++) {
         let rsslink = rsslinks[i].url;

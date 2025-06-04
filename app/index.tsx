@@ -8,10 +8,10 @@ import {
 } from "react-native";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Image } from "expo-image";
-import { RSS } from "../../data/Models/RSS";
-import { MainContext } from "../../services/GlobalStateStore/MainContext";
+import { RSS } from "../data/Models/RSS";
+import { MainContext } from "../services/globalStateStore/MainContext";
 
-export function NewsPage() {
+export function Index() {
   const { newsService } = useContext(MainContext);
   const [news, setNews] = useState<RSS[]>([]);
   const fadeAnim = useRef(new Animated.Value(0)).current;

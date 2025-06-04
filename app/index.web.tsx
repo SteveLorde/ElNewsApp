@@ -8,14 +8,18 @@ import {
 } from "react-native";
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { Image } from "expo-image";
-import { RSS } from "../../data/Models/RSS";
-import { MainContext } from "../../services/GlobalStateStore/MainContext";
-import { newsPageStyle } from "../../styles/newsPageStyle";
+import { RSS } from "../data/Models/RSS";
+import { MainContext } from "../services/globalStateStore/MainContext";
+import { newsPageStyle } from "../styles/newsPageStyle";
 
-export function NewsPageMobile() {
+export function NewsPage() {
   const { newsService } = useContext(MainContext);
   const [news, setNews] = useState<RSS[]>([]);
   const fadeAnim = useRef(new Animated.Value(0)).current;
+
+  const [currentNewsToDisplay, setCurrentNewsToDisplay] = useState<RSS | null>(
+    null,
+  );
 
   async function GetNews() {
     let allnews = await newsService.GetRSS();
@@ -126,9 +130,31 @@ export function NewsPageMobile() {
             }}
           ></View>
         </ScrollView>
+      </View>
 
-        {/*News Detail*/}
-        <View style={newsPageStyle.newsDetailContainer}></View>
+      {/*News Detail*/}
+      <View style={newsPageStyle.newsDetailContainer}>
+        <View style={newsPageStyle.newsDetailHeader}>
+          <View>
+            <Text style={newsPageStyle.newsDetailHeaderPublished}>
+              {currentNewsToDisplay?.published}
+            </Text>
+            <Text style={newsPageStyle.Seperator}>-</Text>
+            <Text style={newsPageStyle.newsDetailHeaderSource}>
+              {currentNewsToDisplay?.source}
+            </Text>
+          </View>
+          <Text style={newsPageStyle.newsDetailHeaderText}>
+            {currentNewsToDisplay?.title}
+          </Text>
+        </View>
+        <View style={newsPageStyle.newsDetailBody}>
+          <Image
+            source={{ uri: currentNewsToDisplay?.imageUrl }}
+            style={newsPageStyle.newsDetailImage}
+          ></Image>
+          <Text>{currentNewsToDisplay?.description}</Text>
+        </View>
       </View>
     </>
   );

@@ -1,14 +1,14 @@
-import * as SQLite from "expo-sqlite/next";
+import * as SQLite from "expo-sqlite";
 
 const db = SQLite.openDatabaseSync("ElNewsSources", {
   enableChangeListener: false,
-  enableCRSQLite: false,
   finalizeUnusedStatementsBeforeClosing: false,
   useNewConnection: false,
 });
 
-export const createSourcesDb = async () => {
+export const createDb = async () => {
   // create a table called "Sources"
+  // create config variables table
 };
 
 export const fetchSources = async () => {

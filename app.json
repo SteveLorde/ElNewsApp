@@ -1,5 +1,6 @@
 {
   "expo": {
+    "scheme": "",
     "name": "el-news-app",
     "slug": "el-news-app",
     "version": "1.0.0",
@@ -26,6 +27,7 @@
       "package": "com.stevelorde.elnewsapp"
     },
     "web": {
+      "bundler": "metro",
       "favicon": "./assets/favicon.png"
     },
     "extra": {
@@ -33,6 +35,25 @@
         "projectId": "7f29a45e-6659-4836-ac0b-323d582ea1d5"
       }
     },
-    "owner": "stevelorde"
+    "owner": "stevelorde",
+    "plugins": [
+      "expo-router",
+      [
+        "expo-sqlite",
+        {
+          "enableFTS": true,
+          "useSQLCipher": true,
+          "android": {
+            "enableFTS": false,
+            "useSQLCipher": false
+          },
+          "ios": {
+            "customBuildFlags": [
+              "-DSQLITE_ENABLE_DBSTAT_VTAB=1 -DSQLITE_ENABLE_SNAPSHOT=1"
+            ]
+          }
+        }
+      ]
+    ]
   }
 }
